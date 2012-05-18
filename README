@@ -37,8 +37,10 @@ Linux (using shell access)
 
 or use the command line option:
 
-	php install.php -h<database hostname> -u<database username> -p<database password> -d<database name> -U<cms username> -P<cms password> -H<url of your site>
-	
+	php install.php -h<database hostname> -u<database username> -p<database password> -d<database name> -U<cms username> -P<cms password> -H<url of your site> [-L<cms language ID, admin language ID>] [-T<template path>]
+
+	Note: Language IDs must be comma separated. Template value must be relative to software root eg "extensions/my_ext/page_templates/default_page_template.html".
+
 3. Make sure that the following directories have write permissions by the web server:
 
 	public/ - upload folder, public folder and subfolders are accessible to everyone.
