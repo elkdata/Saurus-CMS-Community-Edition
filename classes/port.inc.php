@@ -17,7 +17,6 @@
  *
  */
 
-
 global $class_path;
 global $CMS_SETTINGS;
 global $CMS_PARAMS;
@@ -521,19 +520,16 @@ function detect_xss_in_saurus_params($variables)
 
 	foreach($checkable as $key => $value)
 	{
-		//printr(htmlspecialchars($key.$value));
 		if(in_array(strtolower($key), $CMS_PARAMS) && detect_xss_in_string($value))
 		{
-			//printr(urldecode($value));
-			//printr(xss_clean(urldecode($value)));
 			return true;
 		}
 	}
 
 	return false;
 }
-//echo (detect_xss_in_saurus_params($_SERVER['PHP_SELF']) ? 1 : 0);
-if(strstr($_SERVER['REQUEST_URI'], $CMS_SETTINGS['wwwroot'].'/admin/') === false && (
+
+if(strpos(str_replace('\\','/',getcwd()), $absolute_path.'admin') !== 0 && (
 	detect_xss_in_saurus_params($_SERVER['QUERY_STRING']) ||
 	detect_xss_in_saurus_params($_SERVER['REQUEST_URI']) ||
 	detect_xss_in_string($_SERVER['PHP_SELF']) ||
@@ -544,4 +540,3 @@ if(strstr($_SERVER['REQUEST_URI'], $CMS_SETTINGS['wwwroot'].'/admin/') === false
 	header('Location: '.$CMS_SETTINGS['wwwroot'].'/index.php');
 	exit;
 }
-//printr($_SERVER);

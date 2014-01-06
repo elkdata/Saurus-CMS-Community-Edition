@@ -218,7 +218,7 @@ function SCMSImageFileInsert(data)
 		// image
 		if(/gif$/i.test(path) || /jpg$/i.test(path) || /jpeg$/i.test(path) || /png$/i.test(path) )
 		{
-			FCKDialog.OpenDialog( 'Image', FCKLang.DlgImgTitle, BaseURL + 'admin/fckeditor_dialog_image.php?dialog=dialog/scms_image.php&file_id=' + data.files[0].objekt_id, 450, 400);
+			FCKDialog.OpenDialog( 'Image', FCKLang.DlgImgTitle, BaseURL + 'admin/fckeditor_dialog_image.php?file_id=' + data.files[0].objekt_id, 450, 400);
 		}
 		// flash
 		else if(/swf$/i.test(path))
@@ -254,7 +254,7 @@ function SCMSImageFileInsert(data)
 		}
 		else if(/html$/i.test(path) || /htm$/i.test(path))
 		{
-			file_source_window = parent.openpopup(BaseURL + 'admin/file_source.php?callback=window.opener.frames[0].insert_template&file=' + path, 'file_source', 1, 1);
+			file_source_window = parent.openpopup(BaseURL + 'admin/file_source.php?file=' + path, 'file_source', 1, 1);
 		}
 		// file
 		else

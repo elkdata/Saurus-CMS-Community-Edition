@@ -31,6 +31,9 @@
 # GENERAL ACTIONS for both saving and editing
 
 	global $site;
+	
+if(empty($site)) exit;
+	
 	global $objekt;
 	global $par_obj;
 	global $class_path;
@@ -98,7 +101,7 @@ if ($site->fdat['op'] == "new" && $tyyp['tyyp_id']=='20' && sizeof($profile_idli
 		# sanity check: kui ei leitud sellise nimega profiili, anda toimetajale veateade ja v�ljuda:
 		if(!$profile_def[profile_id]) {
 			if($site->in_admin || $site->in_editor) {
-				print "<font color=red><b>Profile '".$profile_id."' not found!</b></font>";
+				print "<font color=red><b>Profile '".htmlspecialchars(xss_clean($profile_id))."' not found!</b></font>";
 			}
 		}
 		# k�ik OK
@@ -272,8 +275,6 @@ $pearubriik = $par_obj->all[sys_alias]=="home" ? 1 : 0;
 <input type="hidden" name="keel" value="<?=$keel?>">
 
 <input type="hidden" name="sorting" value="<?=$site->fdat['sorting'];?>">
-
-<input type="hidden" name="extension_path" value="<?=$site->fdat['extension_path']?>">
 
 <input type="hidden" name="opener_location" value="">
 <input type="hidden" name="publish" value="<?php echo ($site->fdat['publish'] || $objekt->all['on_avaldatud'] ? 1 : 0); ?>">

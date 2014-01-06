@@ -64,6 +64,8 @@ if(!$called_from_install_script) {
 		on_debug=>0,
 		on_admin_keel => 1
 	));
+	$site->fdat['flt_keel'] = (int)$site->fdat['flt_keel'];
+	$site->fdat['group'] = (int)$site->fdat['group'];
 
 	if (!$site->user->allowed_adminpage()) {
 		exit;
@@ -150,7 +152,7 @@ if(!$called_from_install_script) {
 					));
 
 
-					$q="update config set sisu='".$site->fdat['timezone']."' where nimi='time_zone'";
+					$q="update config set sisu='".(int)$site->fdat['timezone']."' where nimi='time_zone'";
 					new SQL($q);
 
 
@@ -678,6 +680,8 @@ function print_config_table() {
 		));
 		# force language to english when called from installation script:
 		$site->keel = 1;
+		$site->fdat['flt_keel'] = (int)$site->fdat['flt_keel'];
+		$site->fdat['group'] = (int)$site->fdat['group'];
 	}
 	###########################
 	# Define groups here - different for install.php and admin-pages
@@ -980,6 +984,9 @@ if(!$called_from_install_script) {
 	##################
 	# SAVE
 	if ($site->fdat[salvesta]==1) {
+			
+		verify_form_token();
+		
 		foreach ($site->fdat as $key=>$value) {
 
 			if ( substr ($key, 0, 4) == "cff_" ) {

@@ -310,7 +310,8 @@ if($args['is_browse']) { $site->fdat['view']='overview_false'; }
 	# users list
 
 	########### ORDER
-	$order = " ORDER BY ".$site->fdat['sortby']." ".$site->fdat['sort'];
+	$site->fdat['sort'] = $site->fdat['sort'] == 'asc' ? 'asc': 'desc';
+	$order = " ORDER BY `".mysql_real_escape_string($site->fdat['sortby'])."` ".$site->fdat['sort'];
 
 	########### SQL
 
@@ -664,6 +665,8 @@ function print_search_box(){
 
 	foreach($site->fdat as $fdat_field=>$fdat_value) { 
 		if(!in_array($fdat_field, $exclude_hidden_fields))	{ 
+			$fdat_value = htmlspecialchars(xss_clean($fdat_value));
+			$fdat_field = htmlspecialchars(xss_clean($fdat_field)); 
 			$out .= '<input type=hidden id="searchform_'.$fdat_field.'" name="'.$fdat_field.'" value="'.$fdat_value.'">
 			';
 		}
